@@ -1,0 +1,18 @@
+{
+  "manifestVersion": "0.1.0",
+  "message": "\nQuick Start\nRun your local blockchain:\n> ganache-cli --deterministic\nInitialize the OpenZeppelin SDK project:\n> openzeppelin init app\nGo to the client directory:\n> cd client\nRun the React app:\n> npm run start\nContinue in your browser!\nMore at https://github.com/OpenZeppelin/starter-kit-gsn",
+  "files": [
+    ".gitignore",
+    "LICENSE",
+    "client",
+    "contracts",
+    "migrations",
+    "package.json",
+    "solhint.json",
+    "test",
+    "truffle-config.js"
+  ],
+  "hooks": {
+    "post-unpack": "npm install && cd client && npm install"
+  }
+}
