@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 
 import { useWeb3Injected } from '@openzeppelin/network';
-import getWeb3, { getGanacheWeb3 } from './utils/getWeb3';
 import Header from './components/Header/index.js';
 import Footer from './components/Footer/index.js';
 import Hero from './components/Hero/index.js';
@@ -23,111 +22,9 @@ class AppOld extends Component {
     route: window.location.pathname.replace('/', ''),
   };
 
-  getGanacheAddresses = async () => {
-    if (!this.ganacheProvider) {
-      this.ganacheProvider = getGanacheWeb3();
-    }
-    if (this.ganacheProvider) {
-      return await this.ganacheProvider.eth.getAccounts();
-    }
-    return [];
-  };
+  componentDidMount = async () => {};
 
-  componentDidMount = async () => {
-    const hotLoaderDisabled = solidityLoaderOptions.disabled;
-    let CounterJSON = {};
-    try {
-      CounterJSON = require('../../contracts/Counter.sol');
-    } catch (e) {
-      console.log(e);
-    }
-    try {
-      // Get network provider and web3 instance.
-      const web3 = await getWeb3();
-      let ganacheAccounts = [];
-      try {
-        ganacheAccounts = await this.getGanacheAddresses();
-      } catch (e) {
-        console.log('Ganache is not running');
-      }
-      // Use web3 to get the user's accounts.
-      const accounts = await web3.eth.getAccounts();
-      // Get the contract instance.
-      const networkId = await web3.eth.net.getId();
-      const networkType = await web3.eth.net.getNetworkType();
-      const isMetaMask = web3.currentProvider.isMetaMask;
-      let balance = accounts.length > 0 ? await web3.eth.getBalance(accounts[0]) : web3.utils.toWei('0');
-      balance = web3.utils.fromWei(balance, 'ether');
-      let instance = null;
-      let deployedNetwork = null;
-      if (CounterJSON.networks) {
-        deployedNetwork = CounterJSON.networks[networkId.toString()];
-        if (deployedNetwork) {
-          instance = new web3.eth.Contract(CounterJSON.abi, deployedNetwork && deployedNetwork.address);
-        }
-      }
-      if (instance) {
-        // Set web3, accounts, and contract to the state, and then proceed with an
-        // example of interacting with the contract's methods.
-        this.setState(
-          {
-            web3,
-            ganacheAccounts,
-            accounts,
-            balance,
-            networkId,
-            networkType,
-            hotLoaderDisabled,
-            isMetaMask,
-            contract: instance,
-          },
-          () => {
-            this.refreshValues(instance);
-            setInterval(() => {
-              this.refreshValues(instance);
-            }, 5000);
-          },
-        );
-      } else {
-        this.setState({
-          web3,
-          ganacheAccounts,
-          accounts,
-          balance,
-          networkId,
-          networkType,
-          hotLoaderDisabled,
-          isMetaMask,
-        });
-      }
-    } catch (error) {
-      // Catch any errors for any of the above operations.
-      alert(`Failed to load web3, accounts, or contract. Check console for details.`);
-      console.error(error);
-    }
-  };
-
-  componentWillUnmount() {
-    if (this.interval) {
-      clearInterval(this.interval);
-    }
-  }
-
-  refreshValues = instance => {
-    if (instance) {
-      this.getCount();
-    }
-  };
-
-  renderLoader() {
-    return (
-      <div className={styles.loader}>
-        <Loader size="80px" color="red" />
-        <h3> Loading Web3, accounts, and contract...</h3>
-        <p> Unlock your metamask </p>
-      </div>
-    );
-  }
+  componentWillUnmount() {}
 
   renderDeployCheck(instructionsKey) {
     return (
@@ -210,7 +107,9 @@ class AppOld extends Component {
 
 function App() {
   // get web3 from injected provider
-  const context = useWeb3Injected();
+  const context = useWeb3Injected({
+    gsn: true,
+  });
 
   // load Counter json artifact
   let counterJSON = undefined;
@@ -245,8 +144,8 @@ function App() {
       <Hero />
       <div className={styles.wrapper}>
         {!context.lib && renderNoWeb3()}
-
         <div className={styles.contracts}>
+          <h1>BUIDL with GSN Kit!</h1>
           <div className={styles.widgets}>
             <Web3Info title="GSN Provider" context={context} />
             <Counter {...context} JSON={counterJSON} instance={counterInstance} />

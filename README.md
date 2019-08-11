@@ -100,7 +100,7 @@ npm run build
 
 - **How do I use this with the Ganache-CLI?**
 
-  It's as easy as modifying the config file! [Check out our documentation on adding network configurations](http://truffleframework.com/docs/advanced/configuration#networks). Depending on the port you're using, you'll also need to update line 29 of `client/src/utils/getWeb3.js`.
+  It's as easy as modifying the config file! [Check out our documentation on adding network configurations](http://truffleframework.com/docs/advanced/configuration#networks).
 
 - **Where is my production build?**
 
