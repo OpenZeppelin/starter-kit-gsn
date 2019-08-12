@@ -1,12 +1,10 @@
-# OpenZeppelin Starter Kit Tutorial
+# OpenZeppelin GSN Starter Kit Tutorial
 
-An OpenZeppelin Starter Kit Tutorial containing React, OpenZeppelin SDK, OpenZeppelin Contracts, Truffle and Infura.
+An OpenZeppelin Starter Kit Tutorial containing React, OpenZeppelin SDK, OpenZeppelin Contracts, Gas Station Network, Truffle and Infura.
 
-This kit comes with everything you need to start using upgradeable Smart
-contracts inside your applications. It also includes all the configuration
-required to deploy to different networks.
+OpenZeppelin GSN Starter Kit comes with everything you need to start using Gas Station Network contracts inside your applications. It also includes all the GSN Providers & Web3 connectors that you need to abstract gas for your users.
 
-In addition to the contents included in the [vanilla Starter Kit](https://github.com/OpenZeppelin/starter-kit/blob/master/README.md), this kit contains a step-by-step tutorial on how to use the OpenZeppelin SDK to develop your decentralized application.
+In addition to the contents included in the [vanilla Starter Kit](https://github.com/OpenZeppelin/starter-kit/blob/master/README.md), this kit contains a step-by-step tutorial on how to enable Gas Station Network for a simple Counter Contract.
 
 ## Requirements
 
@@ -21,7 +19,7 @@ npm install -g truffle@5.0.2 ganache-cli@6.3.0 @openzeppelin/cli@2.5.0
 Ensure you are in a new and empty directory, and run the `unpack` command with `tutorial` to create a starter project:
 
 ```javascript
-openzeppelin unpack tutorial
+openzeppelin unpack OpenZeppelin/starter-kit-gsn
 ```
 
 ## Run
@@ -66,7 +64,7 @@ sends a transaction to your contract and returns the events.
 
 execute a constant method and receive back the value.
 
-Type `openzeppelin` to see a complete list of availible commands.
+Type `openzeppelin` to see a complete list of available commands.
 
 ## Test
 
