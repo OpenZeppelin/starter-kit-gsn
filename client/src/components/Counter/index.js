@@ -34,8 +34,24 @@ export default function Counter(props) {
   function renderNoDeploy() {
     return (
       <div>
-        <h4>Can't Load Deployed Counter Instance</h4>
+        <p>
+          <strong>Can't Load Deployed Counter Instance</strong>
+        </p>
         <p>Please, run `oz create` to deploy an counter instance.</p>
+      </div>
+    );
+  }
+
+  function renderNoFunds() {
+    return (
+      <div>
+        <p>
+          <strong>A recipient has no funds</strong>
+        </p>
+        <p>
+          Please, run `<strong>npx oz-gsn fund-recipient --recipient {_address.substring(0, 6)}... --amount 10</strong>`
+          to fund the recipient.
+        </p>
       </div>
     );
   }
@@ -56,6 +72,8 @@ export default function Counter(props) {
             <div className={styles.label}>Counter Value:</div>
             <div className={styles.value}>{count}</div>
           </div>
+          {lib && instance && true && renderNoFunds()}
+
           <div className={styles.label}>Counter Actions</div>
           <div className={styles.buttons}>
             <Button onClick={() => increase(1)} size="small">

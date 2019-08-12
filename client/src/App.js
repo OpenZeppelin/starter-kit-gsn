@@ -1,6 +1,6 @@
-import React, { Component } from 'react';
+import React, { Component, useState } from 'react';
 
-import { useWeb3Injected } from '@openzeppelin/network';
+import { useWeb3Network } from '@openzeppelin/network';
 import Header from './components/Header/index.js';
 import Footer from './components/Footer/index.js';
 import Hero from './components/Hero/index.js';
@@ -106,10 +106,13 @@ class AppOld extends Component {
 }
 
 function App() {
-  // get web3 from injected provider
-  const context = useWeb3Injected({
-    gsn: true,
+  // get GSN web3
+  const context = useWeb3Network('http://127.0.0.1:8545', {
+    gsn: {
+      dev: true,
+    },
   });
+  console.log(context);
 
   // load Counter json artifact
   let counterJSON = undefined;
@@ -120,20 +123,20 @@ function App() {
   }
 
   // load Counter instance
-  let counterInstance = undefined;
+  const [counterInstance, setCounterInstance] = useState(undefined);
   let deployedNetwork = undefined;
-  if (counterJSON.networks && context.networkId) {
+  if (!counterInstance && context && counterJSON.networks && context.networkId) {
     deployedNetwork = counterJSON.networks[context.networkId.toString()];
     if (deployedNetwork) {
-      counterInstance = new context.lib.eth.Contract(counterJSON.abi, deployedNetwork.address);
+      setCounterInstance(new context.lib.eth.Contract(counterJSON.abi, deployedNetwork.address));
     }
   }
 
   function renderNoWeb3() {
     return (
       <div className={styles.loader}>
-        <h3>Injected Web3 Provider Not Found</h3>
-        <p>Please, install and enable MetaMask.</p>
+        <h3>Web3 Provider Not Found</h3>
+        <p>Please, install and run Ganache.</p>
       </div>
     );
   }
@@ -147,7 +150,7 @@ function App() {
         <div className={styles.contracts}>
           <h1>BUIDL with GSN Kit!</h1>
           <div className={styles.widgets}>
-            <Web3Info title="GSN Provider" context={context} />
+            <Web3Info title="Web3 Provider" context={context} />
             <Counter {...context} JSON={counterJSON} instance={counterInstance} />
           </div>
         </div>
