@@ -33,6 +33,7 @@
   "dependencies": {
     "@openzeppelin/upgrades": "^2.5.1",
     "dotenv": "^6.2.0",
+    "tabookey-gasless": "^0.4.0-beta2",
     "truffle-hdwallet-provider": "^1.0.3"
   },
   "devDependencies": {

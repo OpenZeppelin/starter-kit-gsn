@@ -8,6 +8,9 @@ export default function Counter(props) {
 
   const [count, setCount] = useState(0);
 
+  const isFunded = false;
+  const recipientFunds = 214;
+
   useEffect(() => {
     getCount();
   }, [instance]);
@@ -34,8 +37,24 @@ export default function Counter(props) {
   function renderNoDeploy() {
     return (
       <div>
-        <h4>Can't Load Deployed Counter Instance</h4>
+        <p>
+          <strong>Can't Load Deployed Counter Instance</strong>
+        </p>
         <p>Please, run `oz create` to deploy an counter instance.</p>
+      </div>
+    );
+  }
+
+  function renderNoFunds() {
+    return (
+      <div>
+        <p>
+          <strong>A recipient has no funds</strong>
+        </p>
+        <p>
+          Please, run `<strong>npx oz-gsn fund-recipient --recipient {_address.substring(0, 6)}... --amount 10</strong>`
+          to fund the recipient.
+        </p>
       </div>
     );
   }
@@ -49,22 +68,31 @@ export default function Counter(props) {
           <div className={styles.dataPoint}>
             <div className={styles.label}>Instance address:</div>
             <div className={styles.value}>
-              <PublicAddress address={_address} />
+              <PublicAddress label="" address={_address} />
             </div>
           </div>
           <div className={styles.dataPoint}>
             <div className={styles.label}>Counter Value:</div>
             <div className={styles.value}>{count}</div>
           </div>
-          <div className={styles.label}>Counter Actions</div>
-          <div className={styles.buttons}>
-            <Button onClick={() => increase(1)} size="small">
-              Increase Counter by 1
-            </Button>
-            <Button onClick={() => decrease(1)} disabled={!(methods && methods.decreaseCounter)} size="small">
-              Decrease Counter by 1
-            </Button>
+          <div className={styles.dataPoint}>
+            <div className={styles.label}>Recipient Funds:</div>
+            <div className={styles.value}>{recipientFunds} ETH</div>
           </div>
+          {lib && instance && !isFunded && renderNoFunds()}
+          {lib && instance && isFunded && (
+            <React.Fragment>
+              <div className={styles.label}>Counter Actions</div>
+              <div className={styles.buttons}>
+                <Button onClick={() => increase(1)} size="small">
+                  Increase Counter by 1
+                </Button>
+                <Button onClick={() => decrease(1)} disabled={!(methods && methods.decreaseCounter)} size="small">
+                  Decrease Counter by 1
+                </Button>
+              </div>
+            </React.Fragment>
+          )}
         </React.Fragment>
       )}
     </div>
