@@ -2,14 +2,34 @@ import React, { useState, useEffect } from 'react';
 import { PublicAddress, Button } from 'rimble-ui';
 import styles from './Counter.module.scss';
 
+import { utils } from '@openzeppelin/gsn-provider';
+const { isRelayHubDeployedForRecipient, getRecipientFunds } = utils;
+
 export default function Counter(props) {
   const { instance, accounts, lib } = props;
   const { _address, methods } = instance || {};
 
-  const [count, setCount] = useState(0);
+  const [isDeployed, setIsDeployed] = useState(false);
+  const [funds, setFunds] = useState(0);
 
-  const isFunded = false;
-  const recipientFunds = 214;
+  useEffect(() => {
+    getDeploymentAndFunds();
+  }, [instance]);
+
+  console.log(isDeployed, funds);
+
+  const getDeploymentAndFunds = async () => {
+    if (instance) {
+      const isDeployed = await isRelayHubDeployedForRecipient(lib, _address);
+      setIsDeployed(isDeployed);
+      if (isDeployed) {
+        const funds = await getRecipientFunds(lib, _address);
+        setFunds(funds);
+      }
+    }
+  };
+
+  const [count, setCount] = useState(0);
 
   useEffect(() => {
     getCount();
@@ -49,11 +69,14 @@ export default function Counter(props) {
     return (
       <div>
         <p>
-          <strong>A recipient has no funds</strong>
+          <strong>The recipient has no funds</strong>
         </p>
         <p>
-          Please, run `<strong>npx oz-gsn fund-recipient --recipient {_address.substring(0, 6)}... --amount 10</strong>`
-          to fund the recipient.
+          Please, run `
+          <strong>
+            npx oz-gsn fund-recipient --recipient <small>{_address}</small>
+          </strong>
+          ` to fund the recipient.
         </p>
       </div>
     );
@@ -77,10 +100,10 @@ export default function Counter(props) {
           </div>
           <div className={styles.dataPoint}>
             <div className={styles.label}>Recipient Funds:</div>
-            <div className={styles.value}>{recipientFunds} ETH</div>
+            <div className={styles.value}>{funds} ETH</div>
           </div>
-          {lib && instance && !isFunded && renderNoFunds()}
-          {lib && instance && isFunded && (
+          {lib && instance && !funds && renderNoFunds()}
+          {lib && instance && !!funds && (
             <React.Fragment>
               <div className={styles.label}>Counter Actions</div>
               <div className={styles.buttons}>

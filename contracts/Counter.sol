@@ -19,22 +19,22 @@ contract Counter is Initializable, RelayRecipient {
     return address(0xD216153c06E857cD7f72665E0aF1d7D82172F494);
   }
 
-  // accept all requests 
+  // accept all requests
   function acceptRelayedCall(
-    address relay,
-    address from,
-    bytes calldata encodedFunction,
-    uint256 transactionFee,
-    uint256 gasPrice,
-    uint256 gasLimit,
-    uint256 nonce,
-    bytes calldata approvalData,
-    uint256 maxPossibleCharge
+    address,
+    address,
+    bytes calldata,
+    uint256,
+    uint256,
+    uint256,
+    uint256,
+    bytes calldata,
+    uint256
     ) external view returns (uint256, bytes memory) {
     return (0, "free");
   }
 
-  function preRelayedCall(bytes calldata context) /*relayHubOnly*/ external returns (bytes32) {
+  function preRelayedCall(bytes calldata) /*relayHubOnly*/ external returns (bytes32) {
     return bytes32(uint(42));
   }
 
@@ -57,9 +57,9 @@ contract Counter is Initializable, RelayRecipient {
 
   //We'll upgrade the contract with this function after deploying it
   //Function to decrease the counter
-  // function decreaseCounter(uint256 amount) public returns (bool) {
-  //   require(count > amount, "Cannot be lower than 0");
-  //   count = count - amount;
-  //   return true;
-  // }
+  function decreaseCounter(uint256 amount) public returns (bool) {
+    require(count > amount, "Cannot be lower than 0");
+    count = count - amount;
+    return true;
+  }
 }
