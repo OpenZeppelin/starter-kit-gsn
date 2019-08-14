@@ -16,7 +16,7 @@ npm install -g truffle@5.0.2 ganache-cli@6.3.0 @openzeppelin/cli@2.5.0
 
 ## Installation
 
-Ensure you are in a new and empty directory, and run the `unpack` command with `tutorial` to create a starter project:
+Ensure you are in a new and empty directory, and run the `unpack` command with `OpenZeppelin/starter-kit-gsn` to create a starter project:
 
 ```javascript
 openzeppelin unpack OpenZeppelin/starter-kit-gsn
