@@ -16,8 +16,6 @@ export default function Counter(props) {
     getDeploymentAndFunds();
   }, [instance]);
 
-  console.log(isDeployed, funds);
-
   const getDeploymentAndFunds = async () => {
     if (instance) {
       const isDeployed = await isRelayHubDeployedForRecipient(lib, _address);
@@ -47,11 +45,13 @@ export default function Counter(props) {
   const increase = async number => {
     await instance.methods.increaseCounter(number).send({ from: accounts[0] });
     getCount();
+    getDeploymentAndFunds();
   };
 
   const decrease = async number => {
     await instance.methods.decreaseCounter(number).send({ from: accounts[0] });
     getCount();
+    getDeploymentAndFunds();
   };
 
   function renderNoDeploy() {
@@ -71,13 +71,13 @@ export default function Counter(props) {
         <p>
           <strong>The recipient has no funds</strong>
         </p>
-        <p>
-          Please, run `
-          <strong>
+        <p>Please, run:</p>
+        <div className={styles.code}>
+          <code>
             npx oz-gsn fund-recipient --recipient <small>{_address}</small>
-          </strong>
-          ` to fund the recipient.
-        </p>
+          </code>
+        </div>
+        <p>to fund the recipient on local network.</p>
       </div>
     );
   }
@@ -100,12 +100,14 @@ export default function Counter(props) {
           </div>
           <div className={styles.dataPoint}>
             <div className={styles.label}>Recipient Funds:</div>
-            <div className={styles.value}>{funds} ETH</div>
+            <div className={styles.value}>{lib.utils.fromWei(funds.toString(), 'ether')} ETH</div>
           </div>
           {lib && instance && !funds && renderNoFunds()}
           {lib && instance && !!funds && (
             <React.Fragment>
-              <div className={styles.label}>Counter Actions</div>
+              <div className={styles.label}>
+                <strong>Counter Actions</strong>
+              </div>
               <div className={styles.buttons}>
                 <Button onClick={() => increase(1)} size="small">
                   Increase Counter by 1

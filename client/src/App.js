@@ -16,7 +16,6 @@ function App() {
       dev: true,
     },
   });
-  console.log(context);
 
   // load Counter json artifact
   let counterJSON = undefined;

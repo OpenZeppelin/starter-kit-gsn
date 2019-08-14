@@ -4,7 +4,7 @@
   "private": true,
   "dependencies": {
     "@openzeppelin/gsn-provider": "^0.1.6",
-    "@openzeppelin/network": "file:../../openzeppelin-network.js",
+    "@openzeppelin/network": "^0.2.6",
     "@openzeppelin/solidity-loader": "^1.4.5",
     "classnames": "^2.2.6",
     "json-loader": "^0.5.7",

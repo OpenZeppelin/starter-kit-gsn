@@ -1,5 +1,18 @@
 @import '../../layout/variables.scss';
 
+.code {
+  width: 100%;
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  margin: 10px 0;
+
+  code {
+    background: rgba(231, 231, 238, 0.5);
+    border-radius: 0px;
+  }
+}
+
 .counter {
   padding: 40px 0;
   display: flex;
