@@ -1,6 +1,6 @@
-# OpenZeppelin GSN Starter Kit Tutorial
+# OpenZeppelin Starter Kit GSN
 
-An OpenZeppelin Starter Kit Tutorial containing React, OpenZeppelin SDK, OpenZeppelin Contracts, Gas Station Network, Truffle and Infura.
+An OpenZeppelin Starter Kit GSN containing React, OpenZeppelin SDK, OpenZeppelin Contracts, Gas Station Network, Truffle and Infura.
 
 OpenZeppelin GSN Starter Kit comes with everything you need to start using Gas Station Network contracts inside your applications. It also includes all the GSN Providers & Web3 connectors that you need to abstract gas for your users.
 

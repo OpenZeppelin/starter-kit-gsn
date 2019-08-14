@@ -105,6 +105,7 @@ export default function Counter(props) {
           {lib && instance && !funds && renderNoFunds()}
           {lib && instance && !!funds && (
             <React.Fragment>
+              <br />
               <div className={styles.label}>
                 <strong>Counter Actions</strong>
               </div>
