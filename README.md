@@ -1,4 +1,4 @@
-# OpenZeppelin Starter Kit GSN
+# OpenZeppelin GSN Starter Kit
 
 An OpenZeppelin Starter Kit GSN containing React, OpenZeppelin SDK, OpenZeppelin Contracts, Gas Station Network, Truffle and Infura.
 
@@ -44,28 +44,6 @@ cd client
 npm run start
 ```
 
-## Interact
-
-You can interact directly with your smart contracts from the `openzeppelin` cli.
-
-`openzeppelin transfer`
-
-send funds to a given address.
-
-`openzeppelin balance [address]`
-
-query the ETH balance of the specified account, also supports ERC20s.
-
-`openzeppelin send-tx`
-
-sends a transaction to your contract and returns the events.
-
-`openzeppelin call`
-
-execute a constant method and receive back the value.
-
-Type `openzeppelin` to see a complete list of available commands.
-
 ## Test
 
 Truffle can run tests written in Solidity or JavaScript against your smart contracts. Note the command varies slightly if you're in or outside of the truffle development console.
@@ -93,6 +71,96 @@ To build the application for production, use the build script. A production buil
 // ensure you are inside the client directory when running this
 npm run build
 ```
+
+## Why this kit?
+
+This kit leverages GSN to create dapps that are ready for mass adoption. Free your users from
+the initial burden of installing Metamask and obtaining Ether. Create blockchain applications
+that are indistinguishable from Web2.0 apps.
+
+This documents assumes familiarity with Gas Station Network. Here are some resources about it:
+
+- https://gsn.openzeppelin.com/[Website]
+- https://docs.openzeppelin.com/contracts/2.x/gsn[GSN Contracts Overview]
+- https://github.com/OpenZeppelin/openzeppelin-gsn-provider[GSN Provider]
+
+### How does it use Web3 with GSN?
+This kit uses Open Zeppelin https://github.com/OpenZeppelin/openzeppelin-network.js[network.js] to create the connection to Web3. Using a couple
+flags for development and production you can see how the dapp obtains a context that is aware of Gas Station Network.
+
+[source,solidity]
+----
+// get GSN web3
+const context = useWeb3Network('http://127.0.0.1:8545', {
+  gsn: {
+    dev: true,
+  },
+});
+----
+
+### How are the contracts modified to use GSN?
+
+The `Counter` contract is modified to inherit from `RelayRecipient`.
+Also, the counter contract is going to naively pay for all the transactions that are submitted.
+Note how the `acceptRelayedCall` determines this by returning 0.
+
+[source,solidity]
+----
+pragma solidity ^0.5.0;
+
+
+import "@openzeppelin/contracts-ethereum-package/contracts/GSN/GSNRecipient.sol";
+import "@openzeppelin/upgrades/contracts/Initializable.sol";
+
+contract Counter is Initializable, GSNRecipient {
+  //it keeps a count to demonstrate stage changes
+  uint private count;
+  address private _owner;
+
+  function initialize(uint num) public initializer {
+    GSNRecipient.initialize();
+    _owner = _msgSender();
+    count = num;
+  }
+
+// accept all requests
+  function acceptRelayedCall(
+    address,
+    address,
+    bytes calldata,
+    uint256,
+    uint256,
+    uint256,
+    uint256,
+    bytes calldata,
+    uint256
+    ) external view returns (uint256, bytes memory) {
+    return _approveRelayedCall();
+  }  ...
+}
+----
+
+### How to know if my recipient has funds?
+
+The frontend also has some functions to help you see how much remaining balance you have left.
+Once it runs out, transactions will stop working because your dapp won't be able to pay the gas fee
+on behalf of its users.
+
+[source,solidity]
+----
+const getDeploymentAndFunds = async () => {
+  if (instance) {
+    const isDeployed = await isRelayHubDeployedForRecipient(lib, _address);
+    setIsDeployed(isDeployed);
+    if (isDeployed) {
+      const funds = await getRecipientFunds(lib, _address);
+      setFunds(funds);
+    }
+  }
+};
+----
+
+You can top your balance by sending funds to your contract using `npx oz-gsn fund-recipient --recipient ADDRESS` command or heading to the https://gsn.ethereum.org/recipients[dapp tool].
 
 ## FAQ
 
