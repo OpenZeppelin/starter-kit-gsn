@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import { useWeb3Network } from '@openzeppelin/network';
+import { useWeb3Network, useEphemeralKey } from '@openzeppelin/network';
 import Header from './components/Header/index.js';
 import Footer from './components/Footer/index.js';
 import Hero from './components/Hero/index.js';
@@ -9,13 +9,25 @@ import Counter from './components/Counter/index.js';
 
 import styles from './App.module.scss';
 
+const infuraToken = process.env.REACT_APP_INFURA_TOKEN;
+
 function App() {
+  // get ephemeralKey
+  const signKey = useEphemeralKey();
+
   // get GSN web3
-  const context = useWeb3Network('http://127.0.0.1:8545', {
-    gsn: {
-      dev: true,
-    },
-  });
+  const context = infuraToken
+    ? useWeb3Network(`wss://rinkeby.infura.io/ws/v3/${infuraToken}`, {
+        pollInterval: 10 * 1000,
+        gsn: {
+          signKey,
+        },
+      })
+    : useWeb3Network('http://127.0.0.1:8545', {
+        gsn: {
+          dev: true,
+        },
+      });
 
   // load Counter json artifact
   let counterJSON = undefined;
@@ -42,6 +54,9 @@ function App() {
         <p>Please, install and run Ganache.</p>
       </div>
     );
+  }
+  if (!context.accounts || !context.accounts.length) {
+    context.accounts = [signKey.address];
   }
 
   return (

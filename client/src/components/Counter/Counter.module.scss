@@ -1,5 +1,8 @@
 @import '../../layout/variables.scss';
 
+.loader {
+}
+
 .code {
   width: 100%;
   display: flex;
@@ -53,6 +56,7 @@
     align-items: center;
     button {
       margin: 5px 0;
+      width: 100%;
     }
   }
 }

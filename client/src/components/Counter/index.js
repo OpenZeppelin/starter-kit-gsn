@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { PublicAddress, Button } from 'rimble-ui';
+import { PublicAddress, Button, Loader } from 'rimble-ui';
+
 import styles from './Counter.module.scss';
 
+import getTransactionReceipt from '../../utils/getTransactionReceipt';
 import { utils } from '@openzeppelin/gsn-provider';
 const { isRelayHubDeployedForRecipient, getRecipientFunds } = utils;
 
@@ -19,10 +21,11 @@ export default function Counter(props) {
   const getDeploymentAndFunds = async () => {
     if (instance) {
       const isDeployed = await isRelayHubDeployedForRecipient(lib, _address);
+
       setIsDeployed(isDeployed);
       if (isDeployed) {
         const funds = await getRecipientFunds(lib, _address);
-        setFunds(funds);
+        setFunds(Number(funds));
       }
     }
   };
@@ -42,16 +45,43 @@ export default function Counter(props) {
     }
   };
 
+  const [sending, setSending] = useState(false);
+
   const increase = async number => {
-    await instance.methods.increaseCounter(number).send({ from: accounts[0] });
-    getCount();
-    getDeploymentAndFunds();
+    try {
+      if (!sending) {
+        setSending(true);
+
+        const tx = await instance.methods.increaseCounter(number).send({ from: accounts[0] });
+        const txHash = tx.transactionHash;
+
+        await getTransactionReceipt(lib, txHash);
+
+        getCount();
+        getDeploymentAndFunds();
+
+        setSending(false);
+      }
+    } catch (e) {
+      setSending(false);
+      console.log(e);
+    }
   };
 
   const decrease = async number => {
-    await instance.methods.decreaseCounter(number).send({ from: accounts[0] });
-    getCount();
-    getDeploymentAndFunds();
+    try {
+      if (!sending) {
+        setSending(true);
+
+        await instance.methods.decreaseCounter(number).send({ from: accounts[0] });
+
+        getCount();
+        getDeploymentAndFunds();
+      }
+    } catch (e) {
+      setSending(false);
+      console.log(e);
+    }
   };
 
   function renderNoDeploy() {
@@ -74,7 +104,7 @@ export default function Counter(props) {
         <p>Please, run:</p>
         <div className={styles.code}>
           <code>
-            npx oz-gsn fund-recipient --recipient <small>{_address}</small>
+            <small>npx oz-gsn fund-recipient --recipient {_address}</small>
           </code>
         </div>
         <p>to fund the recipient on local network.</p>
@@ -111,10 +141,10 @@ export default function Counter(props) {
               </div>
               <div className={styles.buttons}>
                 <Button onClick={() => increase(1)} size="small">
-                  Increase Counter by 1
+                  {sending ? <Loader className={styles.loader} color="white" /> : <span> Increase Counter by 1</span>}
                 </Button>
                 <Button onClick={() => decrease(1)} disabled={!(methods && methods.decreaseCounter)} size="small">
-                  Decrease Counter by 1
+                  {sending ? <Loader className={styles.loader} color="white" /> : <span> Decrease Counter by 1</span>}
                 </Button>
               </div>
             </React.Fragment>
