@@ -17,7 +17,9 @@ export default class Hero extends Component {
         <div className={styles.hwrapper}>
           <div className={styles.left}>
             <h1> GSN Kit </h1>
-            <h2>The easiest way to build a Web3 application with the most trusted tools in Ethereum.</h2>
+            <h2>
+              The easiest way to build a Web3 application and onboard users with the most trusted tools in Ethereum.
+            </h2>
             <div className={styles.sellingpoints}>
               <div className={styles.feature}>
                 - Upgradeable smart contracts with{' '}

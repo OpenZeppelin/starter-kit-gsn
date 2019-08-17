@@ -53,9 +53,7 @@ export default function Counter(props) {
         setSending(true);
 
         const tx = await instance.methods.increaseCounter(number).send({ from: accounts[0] });
-        const txHash = tx.transactionHash;
-
-        await getTransactionReceipt(lib, txHash);
+        await getTransactionReceipt(lib, tx.transactionHash);
 
         getCount();
         getDeploymentAndFunds();

@@ -18,7 +18,7 @@ function App() {
   // get GSN web3
   const context = infuraToken
     ? useWeb3Network(`wss://rinkeby.infura.io/ws/v3/${infuraToken}`, {
-        pollInterval: 10 * 1000,
+        pollInterval: 15 * 1000,
         gsn: {
           signKey,
         },
@@ -28,6 +28,8 @@ function App() {
           dev: true,
         },
       });
+
+  console.log(context);
 
   // load Counter json artifact
   let counterJSON = undefined;
@@ -69,7 +71,7 @@ function App() {
           <h1>BUIDL with GSN Kit!</h1>
           <div className={styles.widgets}>
             <Web3Info title="Web3 Provider" context={context} />
-            <Counter {...context} JSON={counterJSON} instance={counterInstance} />
+            <Counter {...context} JSON={counterJSON} instance={counterInstance} deployedNetwork={deployedNetwork} />
           </div>
         </div>
       </div>
