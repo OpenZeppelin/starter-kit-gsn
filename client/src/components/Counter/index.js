@@ -75,6 +75,8 @@ export default function Counter(props) {
 
         getCount();
         getDeploymentAndFunds();
+
+        setSending(false);
       }
     } catch (e) {
       setSending(false);

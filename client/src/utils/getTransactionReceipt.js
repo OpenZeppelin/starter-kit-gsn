@@ -1,11 +1,11 @@
 import sleep from './sleep';
 
-export default async function getTransactionReceipt(web3, hash) {
+export default async function getTransactionReceipt(web3, hash, pollInterval = 500) {
   let receipt = null;
   while (receipt === null) {
     // we are going to check every second if transation is mined or not, once it is mined we'll leave the loop
     receipt = await getTransactionReceiptPromise(web3, hash);
-    await sleep(1000);
+    await sleep(pollInterval);
   }
   return receipt;
 }

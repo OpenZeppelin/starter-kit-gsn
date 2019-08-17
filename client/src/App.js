@@ -26,10 +26,9 @@ function App() {
     : useWeb3Network('http://127.0.0.1:8545', {
         gsn: {
           dev: true,
+          signKey,
         },
       });
-
-  console.log(context);
 
   // load Counter json artifact
   let counterJSON = undefined;
@@ -56,9 +55,6 @@ function App() {
         <p>Please, install and run Ganache.</p>
       </div>
     );
-  }
-  if (!context.accounts || !context.accounts.length) {
-    context.accounts = [signKey.address];
   }
 
   return (
