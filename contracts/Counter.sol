@@ -14,6 +14,12 @@ contract Counter is Initializable, GSNRecipient {
     count = num;
   }
 
+  function setRelayHubAddress() public {
+    if(getHubAddr() == address(0)) {
+      _upgradeRelayHub(0xD216153c06E857cD7f72665E0aF1d7D82172F494);
+    }
+  }
+
   function getRecipientBalance() public view returns (uint) {
     return IRelayHub(getHubAddr()).balanceOf(address(this));
   }

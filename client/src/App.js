@@ -41,7 +41,7 @@ function App() {
   // load Counter instance
   const [counterInstance, setCounterInstance] = useState(undefined);
   let deployedNetwork = undefined;
-  if (!counterInstance && context && counterJSON.networks && context.networkId) {
+  if (!counterInstance && context && counterJSON && counterJSON.networks && context.networkId) {
     deployedNetwork = counterJSON.networks[context.networkId.toString()];
     if (deployedNetwork) {
       setCounterInstance(new context.lib.eth.Contract(counterJSON.abi, deployedNetwork.address));
