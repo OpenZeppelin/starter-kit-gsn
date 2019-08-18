@@ -78,36 +78,25 @@ This kit leverages GSN to create dapps that are ready for mass adoption. Free yo
 the initial burden of installing Metamask and obtaining Ether. Create blockchain applications
 that are indistinguishable from Web2.0 apps.
 
-This documents assumes familiarity with Gas Station Network. Here are some resources about it:
-
-- https://gsn.openzeppelin.com/[Website]
-- https://docs.openzeppelin.com/contracts/2.x/gsn[GSN Contracts Overview]
-- https://github.com/OpenZeppelin/openzeppelin-gsn-provider[GSN Provider]
+This documents assumes familiarity with the [Gas Station Network](https://gsn.openzeppelin.com/). Check out our [GSN getting started guide](https://docs.openzeppelin.com/openzeppelin/gsn/getting-started) to learn more.
 
 ### How does it use Web3 with GSN?
-This kit uses Open Zeppelin https://github.com/OpenZeppelin/openzeppelin-network.js[network.js] to create the connection to Web3. Using a couple
-flags for development and production you can see how the dapp obtains a context that is aware of Gas Station Network.
 
-[source,solidity]
-----
+This kit uses Open Zeppelin https://github.com/OpenZeppelin/openzeppelin-network.js[network.js] to create the connection to Web3. Using a couple of flags for development and production you can see how the dapp obtains a context that is aware of Gas Station Network.
+
+```javascript
 // get GSN web3
 const context = useWeb3Network('http://127.0.0.1:8545', {
-  gsn: {
-    dev: true,
-  },
+  gsn: { dev: true }
 });
-----
+```
 
 ### How are the contracts modified to use GSN?
 
-The `Counter` contract is modified to inherit from `RelayRecipient`.
-Also, the counter contract is going to naively pay for all the transactions that are submitted.
-Note how the `acceptRelayedCall` determines this by returning 0.
+The `Counter` contract is modified to inherit from `RelayRecipient`. Also, the counter contract is going to naively pay for all the transactions that are submitted. Note how the `acceptRelayedCall` determines this by returning 0.
 
-[source,solidity]
-----
+```solidity
 pragma solidity ^0.5.0;
-
 
 import "@openzeppelin/contracts-ethereum-package/contracts/GSN/GSNRecipient.sol";
 import "@openzeppelin/upgrades/contracts/Initializable.sol";
@@ -138,7 +127,7 @@ contract Counter is Initializable, GSNRecipient {
     return _approveRelayedCall();
   }  ...
 }
-----
+```
 
 ### How to know if my recipient has funds?
 
@@ -146,8 +135,7 @@ The frontend also has some functions to help you see how much remaining balance 
 Once it runs out, transactions will stop working because your dapp won't be able to pay the gas fee
 on behalf of its users.
 
-[source,solidity]
-----
+```js
 const getDeploymentAndFunds = async () => {
   if (instance) {
     const isDeployed = await isRelayHubDeployedForRecipient(lib, _address);
@@ -158,9 +146,9 @@ const getDeploymentAndFunds = async () => {
     }
   }
 };
-----
+```
 
-You can top your balance by sending funds to your contract using `npx oz-gsn fund-recipient --recipient ADDRESS` command or heading to the https://gsn.ethereum.org/recipients[dapp tool].
+You can top your balance by sending funds to your contract using `npx oz-gsn fund-recipient --recipient ADDRESS` command or heading to the [dapp tool](https://gsn.ethereum.org/recipients).
 
 ## FAQ
 
