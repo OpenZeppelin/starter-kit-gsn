@@ -1,0 +1,17 @@
+{
+  "manifestVersion": "2.2",
+  "contracts": {
+    "counter": "counter",
+    "Counter": "Counter"
+  },
+  "dependencies": {},
+  "name": "starter-kit-gsn",
+  "version": "1.0.2",
+  "compiler": {
+    "manager": "openzeppelin",
+    "compilerSettings": {
+      "optimizer": {}
+    },
+    "solcVersion": "0.5.10"
+  }
+}
