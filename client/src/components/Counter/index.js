@@ -8,8 +8,23 @@ import { utils } from '@openzeppelin/gsn-provider';
 const { isRelayHubDeployedForRecipient, getRecipientFunds } = utils;
 
 export default function Counter(props) {
-  const { instance, accounts, lib } = props;
+  const { instance, accounts, lib, networkName, networkId, providerName } = props;
   const { _address, methods } = instance || {};
+
+  // GSN provider has only one key pair
+  const isGSN = providerName === 'GSN';
+
+  const [balance, setBalance] = useState(0);
+
+  const getBalance = async () => {
+    let balance =
+      accounts && accounts.length > 0 ? lib.utils.fromWei(await lib.eth.getBalance(accounts[0]), 'ether') : 'Unknown';
+    setBalance(Number(balance));
+  };
+
+  useEffect(() => {
+    if (!isGSN) getBalance();
+  }, [accounts, networkId]);
 
   const [isDeployed, setIsDeployed] = useState(false);
   const [funds, setFunds] = useState(0);
@@ -20,12 +35,15 @@ export default function Counter(props) {
 
   const getDeploymentAndFunds = async () => {
     if (instance) {
-      const isDeployed = await isRelayHubDeployedForRecipient(lib, _address);
+      if (isGSN) {
+        // if GSN check how much funds recipient has
+        const isDeployed = await isRelayHubDeployedForRecipient(lib, _address);
 
-      setIsDeployed(isDeployed);
-      if (isDeployed) {
-        const funds = await getRecipientFunds(lib, _address);
-        setFunds(Number(funds));
+        setIsDeployed(isDeployed);
+        if (isDeployed) {
+          const funds = await getRecipientFunds(lib, _address);
+          setFunds(Number(funds));
+        }
       }
     }
   };
@@ -46,6 +64,7 @@ export default function Counter(props) {
   };
 
   const [sending, setSending] = useState(false);
+  const [transactionHash, setTransactionHash] = useState('');
 
   const increase = async number => {
     try {
@@ -53,7 +72,8 @@ export default function Counter(props) {
         setSending(true);
 
         const tx = await instance.methods.increaseCounter(number).send({ from: accounts[0] });
-        await getTransactionReceipt(lib, tx.transactionHash);
+        const receipt = await getTransactionReceipt(lib, tx.transactionHash);
+        setTransactionHash(receipt.transactionHash);
 
         getCount();
         getDeploymentAndFunds();
@@ -71,7 +91,8 @@ export default function Counter(props) {
       if (!sending) {
         setSending(true);
 
-        await instance.methods.decreaseCounter(number).send({ from: accounts[0] });
+        const receipt = await instance.methods.decreaseCounter(number).send({ from: accounts[0] });
+        setTransactionHash(receipt.transactionHash);
 
         getCount();
         getDeploymentAndFunds();
@@ -112,6 +133,37 @@ export default function Counter(props) {
     );
   }
 
+  function renderNoBalance() {
+    return (
+      <div>
+        <p>
+          <strong>Fund your Metamask account</strong>
+        </p>
+        <p>You need some ETH to be able to send transactions. Please, run:</p>
+        <div className={styles.code}>
+          <code>
+            <small>openzeppelin transfer --to {accounts[0]}</small>
+          </code>
+        </div>
+        <p>to fund your Metamask.</p>
+      </div>
+    );
+  }
+
+  function renderTransactionHash() {
+    return (
+      <div>
+        <p>
+          Transaction{' '}
+          <a href="https://{networkName}.etherscan.io/tx/{transactionHash}">
+            <small>{transactionHash.substr(0, 6)}</small>
+          </a>{' '}
+          has been mined on {networkName} network.
+        </p>
+      </div>
+    );
+  }
+
   return (
     <div className={styles.counter}>
       <h3> Counter Instance </h3>
@@ -128,14 +180,17 @@ export default function Counter(props) {
             <div className={styles.label}>Counter Value:</div>
             <div className={styles.value}>{count}</div>
           </div>
-          <div className={styles.dataPoint}>
-            <div className={styles.label}>Recipient Funds:</div>
-            <div className={styles.value}>{lib.utils.fromWei(funds.toString(), 'ether')} ETH</div>
-          </div>
-          {lib && instance && !funds && renderNoFunds()}
-          {lib && instance && !!funds && (
+          {isGSN && (
+            <div className={styles.dataPoint}>
+              <div className={styles.label}>Recipient Funds:</div>
+              <div className={styles.value}>{lib.utils.fromWei(funds.toString(), 'ether')} ETH</div>
+            </div>
+          )}
+          {isGSN && !funds && renderNoFunds()}
+          {!isGSN && !balance && renderNoBalance()}
+
+          {(!!funds || !!balance) && (
             <React.Fragment>
-              <br />
               <div className={styles.label}>
                 <strong>Counter Actions</strong>
               </div>
@@ -149,6 +204,7 @@ export default function Counter(props) {
               </div>
             </React.Fragment>
           )}
+          {transactionHash && renderTransactionHash()}
         </React.Fragment>
       )}
     </div>
