@@ -155,7 +155,11 @@ export default function Counter(props) {
       <div>
         <p>
           Transaction{' '}
-          <a href="https://{networkName}.etherscan.io/tx/{transactionHash}">
+          <a
+            target="_blank"
+            rel="noopener noreferrer"
+            href={`https://${networkName}.etherscan.io/tx/${transactionHash}`}
+          >
             <small>{transactionHash.substr(0, 6)}</small>
           </a>{' '}
           has been mined on {networkName} network.
@@ -204,7 +208,7 @@ export default function Counter(props) {
               </div>
             </React.Fragment>
           )}
-          {transactionHash && renderTransactionHash()}
+          {transactionHash && networkName !== 'Private' && renderTransactionHash()}
         </React.Fragment>
       )}
     </div>
