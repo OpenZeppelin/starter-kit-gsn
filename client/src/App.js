@@ -67,7 +67,7 @@ function App() {
       <div className={styles.wrapper}>
         {!context.lib && renderNoWeb3()}
         <div className={styles.contracts}>
-          <h1>BUIDL with GSN Kit!</h1>
+          <h1>BUILD with GSN Kit!</h1>
           <div className={styles.widgets}>
             <Web3Info title="Web3 Provider" context={context} />
             <Counter {...context} JSON={counterJSON} instance={counterInstance} deployedNetwork={deployedNetwork} />
