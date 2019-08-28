@@ -161,7 +161,7 @@ if (options.relayHubAddress.toLowerCase() === data.relayHub.address.toLowerCase(
 }
 ```
 
-Note that both on mainnet and in testning environments, the address of the `RelayHub` contract is always `0xD216153c06E857cD7f72665E0aF1d7D82172F494`.
+Note that on both mainnet and testnets, as well as local blockchain (`ganache`) environments, the address of the `RelayHub` contract is always `0xD216153c06E857cD7f72665E0aF1d7D82172F494`.
 
 ## FAQ
 
