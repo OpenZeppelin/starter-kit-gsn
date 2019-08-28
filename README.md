@@ -155,7 +155,7 @@ You can top your balance by sending funds to your contract using `npx oz-gsn fun
 When you run `npx oz fund-recipient`, the following [code](https://github.com/OpenZeppelin/openzeppelin-gsn-helpers/blob/master/src/fund.js) gets executed:
 
 ```js
-// Ensure relayHub is deployed on the local networkNicolás Venturo, 1 day ago: • Remove fund into own script
+// Ensure relayHub is deployed on the local network
 if (options.relayHubAddress.toLowerCase() === data.relayHub.address.toLowerCase()) {
   await deployRelayHub(web3, options.from);
 }
