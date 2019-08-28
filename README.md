@@ -82,7 +82,7 @@ This documents assumes familiarity with the [Gas Station Network](https://gsn.op
 
 ### How does it use Web3 with GSN?
 
-This kit uses Open Zeppelin https://github.com/OpenZeppelin/openzeppelin-network.js[network.js] to create the connection to Web3. Using a couple of flags for development and production you can see how the dapp obtains a context that is aware of Gas Station Network.
+This kit uses Open Zeppelin [network.js](https://github.com/OpenZeppelin/openzeppelin-network.js) to create the connection to Web3. Using a couple of flags for development and production you can see how the dapp obtains a context that is aware of Gas Station Network.
 
 ```javascript
 // get GSN web3
