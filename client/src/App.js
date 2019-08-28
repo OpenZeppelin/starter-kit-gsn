@@ -36,6 +36,7 @@ function App() {
   // load Counter json artifact
   let counterJSON = undefined;
   try {
+    // see https://github.com/OpenZeppelin/solidity-loader
     counterJSON = require('../../contracts/Counter.sol');
   } catch (e) {
     console.log(e);
