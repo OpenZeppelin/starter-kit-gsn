@@ -11,10 +11,12 @@ import Counter from './components/Counter/index.js';
 import styles from './App.module.scss';
 
 // const infuraToken = process.env.REACT_APP_INFURA_TOKEN;
+// eslint-disable-next-line no-unused-vars
 const infuraToken = '95202223388e49f48b423ea50a70e336';
 
 function App() {
   // get ephemeralKey
+  // eslint-disable-next-line no-unused-vars
   const signKey = useEphemeralKey();
 
   // get GSN web3

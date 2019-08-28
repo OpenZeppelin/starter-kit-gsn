@@ -5,7 +5,13 @@
   "main": "index.js",
   "scripts": {
     "build-contracts": "openzeppelin compile",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "pre-push": "cd client && npm run pre-push"
+  },
+  "husky": {
+    "hooks": {
+      "pre-push": "npm run pre-push"
+    }
   },
   "repository": {
     "type": "git",
@@ -40,6 +46,7 @@
     "@openzeppelin/cli": "^2.5.3",
     "@openzeppelin/gsn-helpers": "^0.1.9",
     "chai": "^4.2.0",
+    "husky": "^3.0.4",
     "openzeppelin-test-helpers": "^0.4.3"
   }
 }

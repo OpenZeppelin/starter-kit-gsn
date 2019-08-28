@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { PublicAddress, Button } from 'rimble-ui';
 import styles from './Web3Info.module.scss';
 
@@ -8,15 +8,15 @@ export default function Web3Info(props) {
 
   const [balance, setBalance] = useState(0);
 
-  const getBalance = async () => {
+  const getBalance = useCallback(async () => {
     let balance =
       accounts && accounts.length > 0 ? lib.utils.fromWei(await lib.eth.getBalance(accounts[0]), 'ether') : 'Unknown';
     setBalance(balance);
-  };
+  }, [accounts, lib.eth, lib.utils]);
 
   useEffect(() => {
     getBalance();
-  }, [accounts, networkId]);
+  }, [accounts, getBalance, networkId]);
 
   const requestAuth = async web3Context => {
     try {

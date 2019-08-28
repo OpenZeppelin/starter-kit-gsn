@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { PublicAddress, Button, Loader } from 'rimble-ui';
 
 import styles from './Counter.module.scss';
@@ -6,6 +6,8 @@ import styles from './Counter.module.scss';
 import getTransactionReceipt from '../../utils/getTransactionReceipt';
 import { utils } from '@openzeppelin/gsn-provider';
 const { isRelayHubDeployedForRecipient, getRecipientFunds } = utils;
+
+const useless = 21;
 
 export default function Counter(props) {
   const { instance, accounts, lib, networkName, networkId, providerName } = props;
@@ -16,24 +18,20 @@ export default function Counter(props) {
 
   const [balance, setBalance] = useState(0);
 
-  const getBalance = async () => {
+  const getBalance = useCallback(async () => {
     let balance =
       accounts && accounts.length > 0 ? lib.utils.fromWei(await lib.eth.getBalance(accounts[0]), 'ether') : 'Unknown';
     setBalance(Number(balance));
-  };
+  }, [accounts, lib.eth, lib.utils]);
 
   useEffect(() => {
     if (!isGSN) getBalance();
-  }, [accounts, networkId]);
+  }, [accounts, getBalance, isGSN, lib.eth, lib.utils, networkId]);
 
-  const [isDeployed, setIsDeployed] = useState(false);
+  const [, setIsDeployed] = useState(false);
   const [funds, setFunds] = useState(0);
 
-  useEffect(() => {
-    getDeploymentAndFunds();
-  }, [instance]);
-
-  const getDeploymentAndFunds = async () => {
+  const getDeploymentAndFunds = useCallback(async () => {
     if (instance) {
       if (isGSN) {
         // if GSN check how much funds recipient has
@@ -46,22 +44,26 @@ export default function Counter(props) {
         }
       }
     }
-  };
+  }, [_address, instance, isGSN, lib]);
+
+  useEffect(() => {
+    getDeploymentAndFunds();
+  }, [getDeploymentAndFunds, instance]);
 
   const [count, setCount] = useState(0);
 
-  useEffect(() => {
-    getCount();
-  }, [instance]);
-
-  const getCount = async () => {
+  const getCount = useCallback(async () => {
     if (instance) {
       // Get the value from the contract to prove it worked.
       const response = await instance.methods.getCounter().call();
       // Update state with the result.
       setCount(response);
     }
-  };
+  }, [instance]);
+
+  useEffect(() => {
+    getCount();
+  }, [getCount, instance]);
 
   const [sending, setSending] = useState(false);
   const [transactionHash, setTransactionHash] = useState('');
