@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 
+// eslint-disable-next-line no-unused-vars
 import { useWeb3Network, useEphemeralKey, useWeb3Injected } from '@openzeppelin/network/react';
 
 import Header from './components/Header/index.js';

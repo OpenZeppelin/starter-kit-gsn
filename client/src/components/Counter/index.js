@@ -7,8 +7,6 @@ import getTransactionReceipt from '../../utils/getTransactionReceipt';
 import { utils } from '@openzeppelin/gsn-provider';
 const { isRelayHubDeployedForRecipient, getRecipientFunds } = utils;
 
-const useless = 21;
-
 export default function Counter(props) {
   const { instance, accounts, lib, networkName, networkId, providerName } = props;
   const { _address, methods } = instance || {};
