@@ -70,6 +70,6 @@ build
 .zos.session
 
 
-.openzeppelin/
+.openzeppelin/.session
 
 .vscode
