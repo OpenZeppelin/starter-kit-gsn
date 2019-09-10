@@ -150,6 +150,19 @@ const getDeploymentAndFunds = async () => {
 
 You can top your balance by sending funds to your contract using `npx oz-gsn fund-recipient --recipient ADDRESS` command or heading to the [dapp tool](https://gsn.ethereum.org/recipients).
 
+### How is the RelayHub deployed locally?
+
+When you run `npx oz fund-recipient`, the following [code](https://github.com/OpenZeppelin/openzeppelin-gsn-helpers/blob/master/src/fund.js) gets executed:
+
+```js
+// Ensure relayHub is deployed on the local network
+if (options.relayHubAddress.toLowerCase() === data.relayHub.address.toLowerCase()) {
+  await deployRelayHub(web3, options.from);
+}
+```
+
+Note that on both mainnet and testnets, as well as local blockchain (`ganache`) environments, the address of the `RelayHub` contract is always `0xD216153c06E857cD7f72665E0aF1d7D82172F494`.
+
 ## FAQ
 
 - **How do I use this with the Ganache-CLI?**
