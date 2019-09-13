@@ -44,6 +44,8 @@ cd client
 npm run start
 ```
 
+Follow the instructions in the browser.
+
 ## Test
 
 Truffle can run tests written in Solidity or JavaScript against your smart contracts. Note the command varies slightly if you're in or outside of the truffle development console.
@@ -71,8 +73,6 @@ To build the application for production, use the build script. A production buil
 // ensure you are inside the client directory when running this
 npm run build
 ```
-
-Follow the instructions in the browser.
 
 ## Why this kit?
 
