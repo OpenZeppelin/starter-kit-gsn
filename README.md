@@ -72,6 +72,8 @@ To build the application for production, use the build script. A production buil
 npm run build
 ```
 
+Follow the instructions in the browser.
+
 ## Why this kit?
 
 This kit leverages GSN to create dapps that are ready for mass adoption. Free your users from

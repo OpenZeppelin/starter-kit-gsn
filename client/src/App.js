@@ -11,9 +11,8 @@ import Counter from './components/Counter/index.js';
 
 import styles from './App.module.scss';
 
-// const infuraToken = process.env.REACT_APP_INFURA_TOKEN;
 // eslint-disable-next-line no-unused-vars
-const infuraToken = '95202223388e49f48b423ea50a70e336';
+const infuraToken = process.env.REACT_APP_INFURA_TOKEN || '95202223388e49f48b423ea50a70e336';
 
 function App() {
   // get ephemeralKey
@@ -21,12 +20,12 @@ function App() {
   const signKey = useEphemeralKey();
 
   // get GSN web3
-  // const context = useWeb3Network(`wss://rinkeby.infura.io/ws/v3/${infuraToken}`, {
-  //   pollInterval: 15 * 1000,
-  //   gsn: {
-  //     signKey,
-  //   },
-  // });
+  const context = useWeb3Network(`wss://rinkeby.infura.io/ws/v3/${infuraToken}`, {
+    pollInterval: 15 * 1000,
+    gsn: {
+      signKey,
+    },
+  });
 
   // const context = useWeb3Network('http://127.0.0.1:8545', {
   //   gsn: {
@@ -34,8 +33,6 @@ function App() {
   //     signKey,
   //   },
   // });
-
-  const context = useWeb3Injected();
 
   // load Counter json artifact
   let counterJSON = undefined;
