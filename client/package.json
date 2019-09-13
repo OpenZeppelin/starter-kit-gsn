@@ -32,6 +32,10 @@
       "prettier --write",
       "eslint --fix",
       "git add"
+    ],
+    "*.scss": [
+      "prettier --write",
+      "git add"
     ]
   },
   "browserslist": [
