@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "build-contracts": "openzeppelin compile",
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "npx asado test 'npx jest'",
     "pre-push": "cd client && npm run pre-push",
     "pre-commit": "cd client && npm run pre-commit"
   },
@@ -14,6 +14,10 @@
       "pre-push": "npm run pre-push",
       "pre-commit": "npm run pre-commit"
     }
+  },
+  "jest": {
+    "testRegex": "./test/.*.js$",
+    "rootDir": "."
   },
   "repository": {
     "type": "git",
@@ -47,8 +51,15 @@
   "devDependencies": {
     "@openzeppelin/cli": "^2.5.3",
     "@openzeppelin/gsn-helpers": "^0.1.9",
-    "chai": "^4.2.0",
+    "eslint": "^6.4.0",
+    "eslint-config-airbnb-base": "^14.0.0",
+    "eslint-config-prettier": "^6.3.0",
+    "eslint-plugin-import": "^2.18.2",
+    "eslint-plugin-jest": "^22.17.0",
+    "eslint-plugin-prettier": "^3.1.0",
     "husky": "^3.0.4",
-    "openzeppelin-test-helpers": "^0.4.3"
+    "jest": "^24.9.0",
+    "openzeppelin-test-helpers": "^0.4.3",
+    "prettier": "^1.18.2"
   }
 }
