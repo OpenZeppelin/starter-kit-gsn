@@ -43,7 +43,9 @@
     "@openzeppelin/upgrades": "^2.5.3",
     "dotenv": "^6.2.0",
     "express": "^4.17.1",
-    "truffle-hdwallet-provider": "^1.0.3"
+    "express-async-handler": "^1.1.4",
+    "truffle-hdwallet-provider": "^1.0.3",
+    "web3": "^1.2.1"
   },
   "devDependencies": {
     "@openzeppelin/cli": "^2.5.3",
