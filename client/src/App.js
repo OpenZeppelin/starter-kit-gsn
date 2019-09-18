@@ -20,19 +20,18 @@ function App() {
   const signKey = useEphemeralKey();
 
   // get GSN web3
-  const context = useWeb3Network(`wss://rinkeby.infura.io/ws/v3/${infuraToken}`, {
-    pollInterval: 15 * 1000,
+  // const context = useWeb3Network(`wss://rinkeby.infura.io/ws/v3/${infuraToken}`, {
+  //   pollInterval: 15 * 1000,
+  //   gsn: {
+  //     signKey,
+  //   },
+  // });
+
+  const context = useWeb3Network('http://127.0.0.1:8545', {
     gsn: {
       signKey,
     },
   });
-
-  // const context = useWeb3Network('http://127.0.0.1:8545', {
-  //   gsn: {
-  //     dev: true,
-  //     signKey,
-  //   },
-  // });
 
   // load Counter json artifact
   let counterJSON = undefined;
