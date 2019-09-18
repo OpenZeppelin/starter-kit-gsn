@@ -10,6 +10,7 @@ import Web3Info from './components/Web3Info/index.js';
 import Counter from './components/Counter/index.js';
 
 import styles from './App.module.scss';
+import axios from 'axios';
 
 // eslint-disable-next-line no-unused-vars
 const infuraToken = process.env.REACT_APP_INFURA_TOKEN || '95202223388e49f48b423ea50a70e336';
@@ -26,13 +27,44 @@ function App() {
   //     signKey,
   //   },
   // });
+  const approveFunction = async ({
+    from,
+    to,
+    encodedFunctionCall,
+    txFee,
+    gasPrice,
+    gas,
+    nonce,
+    relayerAddress,
+    relayHubAddress,
+  }) => {
+    let response;
+    try {
+      response = await axios.post('http://localhost:3001/checkSig', {
+        from,
+        to,
+        encodedFunctionCall,
+        txFee,
+        gasPrice,
+        gas,
+        nonce,
+        relayerAddress,
+        relayHubAddress,
+      });
+    } catch (error) {
+      console.error(error);
+    }
+    console.log(response.data);
+    return response.data;
+  };
 
   const context = useWeb3Network('http://127.0.0.1:8545', {
     gsn: {
       signKey,
+      approveFunction,
     },
   });
-
+  console.log(context);
   // load Counter json artifact
   let counterJSON = undefined;
   try {

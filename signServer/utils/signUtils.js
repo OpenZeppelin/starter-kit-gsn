@@ -14,6 +14,7 @@ function fixSignature(signature) {
 }
 const signMessage = async data => {
   let accounts = await web3.eth.getAccounts();
+  console.log("Signing Data with Key: ", accounts[0]);
   return fixSignature(
     await web3.eth.sign(
       soliditySha3(
