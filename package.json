@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "build-contracts": "openzeppelin compile",
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "mocha",
     "pre-push": "cd client && npm run pre-push",
     "pre-commit": "cd client && npm run pre-commit"
   },
@@ -44,6 +44,8 @@
     "dotenv": "^6.2.0",
     "express": "^4.17.1",
     "express-async-handler": "^1.1.4",
+    "mocha": "^6.2.0",
+    "supertest": "^4.0.2",
     "truffle-hdwallet-provider": "^1.0.3",
     "web3": "^1.2.1"
   },
