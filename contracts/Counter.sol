@@ -2,31 +2,18 @@ pragma solidity ^0.5.0;
 
 import "@openzeppelin/contracts-ethereum-package/contracts/GSN/GSNRecipient.sol";
 import "@openzeppelin/upgrades/contracts/Initializable.sol";
+import "@openzeppelin/contracts-ethereum-package/contracts/GSN/bouncers/GSNBouncerSignature.sol";
 
-contract Counter is Initializable, GSNRecipient {
+contract Counter is Initializable, GSNRecipient, GSNBouncerSignature {
   //it keeps a count to demonstrate stage changes
   uint private count;
   address private _owner;
 
-  function initialize(uint num) public initializer {
+  function initialize(uint num, address _trustedSigner) public initializer {
     GSNRecipient.initialize();
+    GSNBouncerSignature.initialize(_trustedSigner);
     _owner = _msgSender();
     count = num;
-  }
-
-  // accept all requests
-  function acceptRelayedCall(
-    address,
-    address,
-    bytes calldata,
-    uint256,
-    uint256,
-    uint256,
-    uint256,
-    bytes calldata,
-    uint256
-    ) external view returns (uint256, bytes memory) {
-    return _approveRelayedCall();
   }
 
   function owner() public view returns (address) {
