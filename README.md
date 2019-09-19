@@ -16,7 +16,7 @@ To start:
 
 This should start ganache, deploy a relay hub, start a relayer, stake for a relayer, compile and deploy a `counter.sol` contract, fund the contract as a recipient and run the react app. If for some reason it doesn't work (some scripts are run on a delay specific for my machine, check out the `package.json` to see whats happening).
 
-If all goes well, you will be using a GSN powered (d)app with an express server signing transactions using the `GSNBouncerSignature.sol` contract from [OpenZeppelin Contracts](https://docs.openzeppelin.com/contracts/2.x/gsn-bouncers)
+If all goes well, (you might need to refresh your browser window that pops up with the react server) you will be using a GSN powered (d)app with an express server signing transactions using the `GSNBouncerSignature.sol` contract from [OpenZeppelin Contracts](https://docs.openzeppelin.com/contracts/2.x/gsn-bouncers)
 
 The server is located in `/signServer/index.js`
 
