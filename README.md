@@ -22,6 +22,8 @@ The server is located in `/signServer/index.js`
 
 More info soon!
 
+(Below is the info for using the GSN Starter Kit which this is based on)
+
 
 # OpenZeppelin GSN Starter Kit
 
