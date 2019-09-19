@@ -5,6 +5,14 @@ This Package is designed to accompany a forth coming tutorial.
 To run: 
 
 ```
+npm install
+
+cd /client
+
+npm install
+```
+
+```
 npm run launch
 ```
 
@@ -13,6 +21,8 @@ This should start ganache, deploy a relay hub, start a relayer, stake for a rela
 If all goes well, you will be using a GSN powered (d)app with an express server signing transactions.
 
 The server is located in `/signServer/index.js`
+
+More info soon!
 
 
 # OpenZeppelin GSN Starter Kit
