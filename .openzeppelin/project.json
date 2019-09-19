@@ -1,7 +1,8 @@
 {
   "manifestVersion": "2.2",
   "contracts": {
-    "Counter": "Counter"
+    "Counter": "Counter",
+    "counter": "counter"
   },
   "dependencies": {},
   "name": "starter-kit-gsn",

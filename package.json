@@ -7,7 +7,14 @@
     "build-contracts": "openzeppelin compile",
     "test": "mocha",
     "pre-push": "cd client && npm run pre-push",
-    "pre-commit": "cd client && npm run pre-commit"
+    "pre-commit": "cd client && npm run pre-commit",
+    "startExpress": "node ./signServer/index.js",
+    "launchGSN": "npx oz-gsn run-relayer --quiet",
+    "startGanache": "ganache-cli --deterministic --quiet",
+    "startReact" : "cd client && npm run start",
+    "fundRecipient" : "npx oz-gsn fund-recipient --recipient 0x9561C133DD8580860B6b7E504bC5Aa500f0f06a7",
+    "deployContract" : "oz create counter --network development --init initialize --args 13,0x90f8bf6a479f320ead074411a4b0e7944ea8c9c1",
+    "launch": "concurrently \"npm:startGanache \" \"sleep 10 && npm run startExpress\" \"sleep 10 && npm run launchGSN \" \"sleep 20 && npm run startReact\" \"sleep 15 && npm run deployContract\" \"sleep 30 && npm run fundRecipient\""
   },
   "husky": {
     "hooks": {
@@ -41,6 +48,7 @@
   "dependencies": {
     "@openzeppelin/contracts-ethereum-package": "^2.2.3",
     "@openzeppelin/upgrades": "^2.5.3",
+    "concurrently": "^4.1.2",
     "dotenv": "^6.2.0",
     "express": "^4.17.1",
     "express-async-handler": "^1.1.4",

@@ -24,8 +24,8 @@ app.post(
     }
   })
 );
-var server = app.listen(3001, function() {
+var server = app.listen(3002, function() {
   var port = server.address().port;
-  console.log("Example app listening at port %s", port);
+  console.log("Express Server listening at port %s", port);
 });
 module.exports = server;

@@ -40,7 +40,7 @@ function App() {
   }) => {
     let response;
     try {
-      response = await axios.post('http://localhost:3001/checkSig', {
+      response = await axios.post('http://localhost:3002/checkSig', {
         from,
         to,
         encodedFunctionCall,
