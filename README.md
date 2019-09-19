@@ -1,3 +1,20 @@
+# Advanced GSNBouncerSignature Tutorial
+
+This Package is designed to accompany a forth coming tutorial. 
+
+To run: 
+
+```
+npm run launch
+```
+
+This should start ganache, deploy a relay hub, start a relayer, stake for a relayer, compile and deploy a `counter.sol` contract, fund the contract as a recipient and run the react app. 
+
+If all goes well, you will be using a GSN powered (d)app with an express server signing transactions.
+
+The server is located in `/signServer/index.js`
+
+
 # OpenZeppelin GSN Starter Kit
 
 An OpenZeppelin Starter Kit GSN containing React, OpenZeppelin SDK, OpenZeppelin Contracts, Gas Station Network, Truffle and Infura.
