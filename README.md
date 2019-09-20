@@ -154,7 +154,7 @@ You can top your balance by sending funds to your contract using `npx oz-gsn fun
 
 ### How is the RelayHub deployed locally?
 
-When you run `npx oz fund-recipient`, the following [code](https://github.com/OpenZeppelin/openzeppelin-gsn-helpers/blob/master/src/fund.js) gets executed:
+When you run `npx oz-gsn fund-recipient`, the following [code](https://github.com/OpenZeppelin/openzeppelin-gsn-helpers/blob/master/src/fund.js) gets executed:
 
 ```js
 // Ensure relayHub is deployed on the local network
