@@ -150,7 +150,7 @@ const getDeploymentAndFunds = async () => {
 };
 ```
 
-You can top your balance by sending funds to your contract using `npx oz-gsn fund-recipient --recipient ADDRESS` command or heading to the [dapp tool](https://gsn.ethereum.org/recipients).
+You can top your balance by sending funds to your contract using `npx oz-gsn fund-recipient --recipient ADDRESS` command or heading to the [dapp tool](https://gsn.openzeppelin.com/recipients).
 
 ### How is the RelayHub deployed locally?
 
