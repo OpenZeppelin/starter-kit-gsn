@@ -11,7 +11,7 @@ In addition to the contents included in the [vanilla Starter Kit](https://github
 Install OpenZeppelin SDK, Ganache, and Truffle
 
 ```
-npm install -g truffle@5.0.2 ganache-cli@6.3.0 @openzeppelin/cli@2.5.0
+npm install -g truffle@5.0.41 ganache-cli@6.7.0 @openzeppelin/cli@2.5.3
 ```
 
 ## Installation
