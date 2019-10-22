@@ -48,7 +48,7 @@
     "@openzeppelin/cli": "^2.5.3",
     "@openzeppelin/gsn-helpers": "^0.1.9",
     "chai": "^4.2.0",
-    "husky": "^3.0.4",
+    "husky": "^3.0.9",
     "openzeppelin-test-helpers": "^0.4.3"
   }
 }
