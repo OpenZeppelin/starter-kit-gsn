@@ -29,6 +29,12 @@ contract Counter is Initializable, GSNRecipient {
     return _approveRelayedCall();
   }
 
+  function _preRelayedCall(bytes memory context) internal returns (bytes32) {
+  }
+
+  function _postRelayedCall(bytes memory context, bool, uint256 actualCharge, bytes32) internal {
+  }
+
   function owner() public view returns (address) {
     return _owner;
   }
