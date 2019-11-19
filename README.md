@@ -96,7 +96,7 @@ const context = useWeb3Network("http://127.0.0.1:8545", {
 ### How are the contracts modified to use GSN?
 
 The `Counter` contract is modified to inherit from `RelayRecipient`. Also, the `Counter` contract is going to
-naively pay for all the transactions that are submitted. Note how the `acceptRelayedCall` determines this by returning 0. Also `_preRelayedCall` and `_postRelayedCall` methods must be implemented because they are defined as abstract in `GSNRecipient`.;
+naively pay for all the transactions that are submitted. Note how the `acceptRelayedCall` determines this by returning 0. Also `_preRelayedCall` and `_postRelayedCall` methods must be implemented because they are defined as abstract in `GSNRecipient`.
 
 ```solidity
 pragma solidity ^0.5.0;
