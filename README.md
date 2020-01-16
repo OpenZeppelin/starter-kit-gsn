@@ -80,7 +80,7 @@ This kit leverages GSN to create dapps that are ready for mass adoption. Free yo
 the initial burden of installing Metamask and obtaining Ether. Create blockchain applications
 that are indistinguishable from Web2.0 apps.
 
-This documents assumes familiarity with the [Gas Station Network](https://gsn.openzeppelin.com/). Check out our [GSN getting started guide](https://docs.openzeppelin.com/openzeppelin/gsn/getting-started) and [GSN Kit Tutorial](https://forum.openzeppelin.com/t/using-gas-station-network-starter-kit-on-a-local-network/1213) to learn more.
+This documents assumes familiarity with the [Gas Station Network](https://gsn.openzeppelin.com/). Check out our [GSN getting started guide](https://docs.openzeppelin.com/learn/sending-gasless-transactions) and [GSN Kit Tutorial](https://forum.openzeppelin.com/t/using-gas-station-network-starter-kit-on-a-local-network/1213) to learn more.
 
 ### How does it use Web3 with GSN?
 
