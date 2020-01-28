@@ -1,6 +1,6 @@
 {
   "manifestVersion": "0.1.0",
-  "message": "\nQuick Start\nRun your local blockchain:\n> ganache-cli --deterministic\nInitialize the OpenZeppelin SDK project:\n> openzeppelin init app\nGo to the client directory:\n> cd client\nRun the React app:\n> npm run start\nContinue in your browser!\nMore at https://github.com/OpenZeppelin/starter-kit-gsn",
+  "message": "\nQuick Start\nRun your local blockchain:\n> ganache-cli --deterministic\nInitialize the OpenZeppelin SDK project:\n> npx openzeppelin init app\nGo to the client directory:\n> cd client\nRun the React app:\n> npm run start\nContinue in your browser!\nMore at https://docs.openzeppelin.com/starter-kits/gsnkit",
   "files": [
     ".gitignore",
     "LICENSE",

@@ -1,6 +1,6 @@
 # OpenZeppelin GSN Starter Kit
 
-An OpenZeppelin Starter Kit GSN containing React, OpenZeppelin SDK, OpenZeppelin Contracts, Gas Station Network, Truffle and Infura.
+An OpenZeppelin Starter Kit GSN containing React, OpenZeppelin CLI, OpenZeppelin Contracts, Gas Station Network, Truffle and Infura.
 
 OpenZeppelin GSN Starter Kit comes with everything you need to start using Gas Station Network contracts inside your applications. It also includes all the GSN Providers & Web3 connectors that you need to abstract gas for your users.
 
@@ -8,18 +8,18 @@ In addition to the contents included in the [vanilla Starter Kit](https://github
 
 ## Requirements
 
-Install OpenZeppelin SDK, Ganache, and Truffle
+Install Ganache, and Truffle
 
 ```
-npm install -g truffle@5.0.41 ganache-cli@6.7.0 @openzeppelin/cli@2.5.3
+npm install -g truffle@5.0.41 ganache-cli@6.7.0
 ```
 
 ## Installation
 
-Ensure you are in a new and empty directory, and run the `unpack` command with `OpenZeppelin/starter-kit-gsn` to create a starter project:
+Ensure you are in a new and empty directory, and run the `unpack` command with `gsn` to create a starter project:
 
 ```javascript
-openzeppelin unpack OpenZeppelin/starter-kit-gsn
+npx @openzeppelin/cli unpack gsn
 ```
 
 ## Run
@@ -34,7 +34,7 @@ In your original terminal window, at the top level of your folder, initialize th
 and follow the prompts:
 
 ```javascript
-openzeppelin init
+npx openzeppelin init
 ```
 
 In a new terminal window, in the `client` directory, run the React app:
@@ -80,7 +80,7 @@ This kit leverages GSN to create dapps that are ready for mass adoption. Free yo
 the initial burden of installing Metamask and obtaining Ether. Create blockchain applications
 that are indistinguishable from Web2.0 apps.
 
-This documents assumes familiarity with the [Gas Station Network](https://gsn.openzeppelin.com/). Check out our [GSN getting started guide](https://docs.openzeppelin.com/openzeppelin/gsn/getting-started) and [GSN Kit Tutorial](https://forum.openzeppelin.com/t/using-gas-station-network-starter-kit-on-a-local-network/1213) to learn more.
+This documents assumes familiarity with the [Gas Station Network](https://gsn.openzeppelin.com/). Check out our [GSN getting started guide](https://docs.openzeppelin.com/learn/sending-gasless-transactions) and [GSN Kit Tutorial](https://forum.openzeppelin.com/t/using-gas-station-network-starter-kit-on-a-local-network/1213) to learn more.
 
 ### How does it use Web3 with GSN?
 
